@@ -12,6 +12,7 @@ import base64
 
 from urllib import parse
 from settings import log, req
+from dingtalkchatbot.chatbot import DingtalkChatbot
 
 
 class Notify(object):
