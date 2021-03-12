@@ -250,7 +250,7 @@ class Notify(object):
             url = 'https://oapi.dingtalk.com/robot/send?' \
                 f'access_token={DD_BOT_TOKEN}'
             if DD_BOT_SECRET:
-                webhook = DD_BOT_TOKEN
+                webhook = 'https://oapi.dingtalk.com/robot/send?access_token={}'.format(DD_BOT_TOKEN)
                 secret = DD_BOT_SECRET
                 xiaoding = DingtalkChatbot(webhook, secret=secret)
                 msg = f'###{text}\n####{status}\n\n{desp}'
