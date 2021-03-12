@@ -255,7 +255,7 @@ class Notify(object):
                 xiaoding = DingtalkChatbot(webhook, secret=secret)
                 msg = f'###{text}\n####{status}\n\n{desp}'
                 xiaoding.send_markdown(title=text, text=msg)
-                return true
+                return 1
 #                 timestamp = int(round(time.time() * 1000))
 #                 secret_enc = bytes(secret).encode('utf-8')
 #                 string_to_sign = f'{timestamp}\n{secret}'
