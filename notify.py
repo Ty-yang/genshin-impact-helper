@@ -253,7 +253,7 @@ class Notify(object):
                 webhook = 'https://oapi.dingtalk.com/robot/send?access_token={}'.format(DD_BOT_TOKEN)
                 secret = DD_BOT_SECRET
                 xiaoding = DingtalkChatbot(webhook, secret=secret)
-                msg = f'###{text}\n####{status}\n\n{desp}'
+                msg = f'### {text}\n#### {status}\n\n{desp}'
                 xiaoding.send_markdown(title=text, text=msg)
                 return 1
 #                 timestamp = int(round(time.time() * 1000))
