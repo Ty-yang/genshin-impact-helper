@@ -234,6 +234,48 @@ class Notify(object):
         name, needs, token, text, code  = conf
 
         return self.pushTemplate('post', url, data=data, name=name, needs=needs, token=token, text=text, code=code)
+    
+    def ddBot2(self, text, status, desp):
+        DD_BOT_TOKEN = self.DD_BOT_TOKEN
+        if 'DD_BOT_TOKEN' in os.environ:
+            DD_BOT_TOKEN = os.environ['DD_BOT_TOKEN']
+
+        DD_BOT_SECRET = self.DD_BOT_SECRET
+        if 'DD_BOT_SECRET' in os.environ:
+            DD_BOT_SECRET = os.environ['DD_BOT_SECRET']
+
+        url = ''
+        if DD_BOT_TOKEN:
+            url = 'https://oapi.dingtalk.com/robot/send?' \
+                f'access_token={DD_BOT_TOKEN}'
+            if DD_BOT_SECRET:
+                webhook = DD_BOT_TOKEN
+                secret = DD_BOT_SECRET
+                xiaoding = DingtalkChatbot(webhook, secret=secret)
+                msg = f'###{text}\n####{status}\n\n{desp}'
+                xiaoding.send_markdown(title=text, text=msg)
+                return true
+#                 timestamp = int(round(time.time() * 1000))
+#                 secret_enc = bytes(secret).encode('utf-8')
+#                 string_to_sign = f'{timestamp}\n{secret}'
+#                 string_to_sign_enc = bytes(string_to_sign).encode('utf-8')
+#                 hmac_code = hmac.new(
+#                     secret_enc, string_to_sign_enc,
+#                     digestmod=hashlib.sha256).digest()
+#                 sign = parse.quote_plus(base64.b64encode(hmac_code))
+#                 url = 'https://oapi.dingtalk.com/robot/send?access_' \
+#                     f'token={DD_BOT_TOKEN}&timestamp={timestamp}&sign={sign}'
+
+#         data = {
+#             'msgtype': 'text',
+#             'text': {
+#                 'content': f'{text} {status}\n\n{desp}'
+#             }
+#         }
+#         conf = ['钉钉机器人', 'DD_BOT_TOKEN', DD_BOT_TOKEN, 'errcode', 0]
+#         name, needs, token, text, code  = conf
+
+#         return self.pushTemplate('post', url, data=data, name=name, needs=needs, token=token, text=text, code=code)
 
     def wwBot(self, text, status, desp):
         WW_BOT_KEY = self.WW_BOT_KEY
@@ -391,16 +433,17 @@ class Notify(object):
             log.info(f'签到结果: {status}\n\n{msg}')
         log.info('准备推送通知...')
 
-        self.serverChan(app, status, msg)
-        self.coolPush(app, status, msg)
-        self.bark(app, status, msg)
-        self.tgBot(app, status, msg)
-        self.ddBot(app, status, msg)
-        self.wwBot(app, status, msg)
-        self.wwApp(app, status, msg)
-        self.iGot(app, status, msg)
-        self.pushPlus(app, status, msg)
-        self.custPush(app, status, msg)
+#         self.serverChan(app, status, msg)
+#         self.coolPush(app, status, msg)
+#         self.bark(app, status, msg)
+#         self.tgBot(app, status, msg)
+#         self.ddBot(app, status, msg)
+#         self.wwBot(app, status, msg)
+#         self.wwApp(app, status, msg)
+#         self.iGot(app, status, msg)
+#         self.pushPlus(app, status, msg)
+#         self.custPush(app, status, msg)
+        self.ddBot2(app, status, msg)
 
 
 if __name__ == '__main__':
